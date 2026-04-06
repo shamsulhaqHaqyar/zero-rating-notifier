@@ -35,7 +35,7 @@ Delete any existing code, paste the contents of `ZeroRatingEmailer.gs`, and save
 On line 7, change `"Sheet1"` to match your actual tab name:
 
 ```js
-const sheet = ss.getSheetByName("Roshan Numbers for Zero Rating");
+const sheet = ss.getSheetByName("telecom Numbers for Zero Rating");
 ```
 
 ### 4. Add your sheet link
