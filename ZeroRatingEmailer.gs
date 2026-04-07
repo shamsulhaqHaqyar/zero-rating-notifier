@@ -60,8 +60,8 @@ function sendPendingZeroRatingEmail() {
         </thead>
         <tbody>${tableRows}</tbody>
       </table>
-      &lt;p&gt;Please prioritize the activation of these numbers so our users can benefit from the Zero Rating service without further delay.&lt;/p&gt;
-      &lt;p&gt;📋 &lt;a href="https://docs.google.com/spreadsheets/d/1d4" style="color:#185FA5"&gt;View the full sheet here&lt;/a&gt;&lt;/p&gt;
+      <p>Please prioritize the activation of these numbers so our users can benefit from the Zero Rating service without further delay.</p>
+      <p>📋 <a href="https://docs.google.com/spreadsheets/d/1d4sXSDfF45iHlsqFljpAU94_uyqbruyzOvosirUwNN4/edit?gid=1635622162#gid=1635622162" style="color:#185FA5">View the full sheet here</a></p>
       <p>Thank you for your continued support and cooperation.</p>
       <p style="margin-top:24px">Warm regards,<br>
         <strong>Shams Haqyar — Lead Technology</strong><br>
