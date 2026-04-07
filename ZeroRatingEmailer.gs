@@ -1,6 +1,4 @@
-// ================================================
 // Zero Rating Pending Notifier
-// ================================================
 
 function sendPendingZeroRatingEmail() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
