@@ -2,18 +2,30 @@
 
 function sendPendingZeroRatingEmail() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName("Telecom Activation List");
+  const sheet = ss.getSheetByName("Roshan Activation List");
   const data = sheet.getDataRange().getValues();
 
-  const pendingRows = [];
+  const seenNumbers = new Map();
+
   for (let i = 1; i < data.length; i++) {
-    const status = String(data[i][5]).trim(); // Column F
-    if (status === "Pending") {
-      pendingRows.push({
-        no:     data[i][0],
-        date:   formatDate(data[i][1]),
-        number: data[i][3],
-      });
+    const status = String(data[i][5]).trim();
+    const roshanNumber = String(data[i][3]).trim();
+
+    if (!roshanNumber.match(/^07[29]\d{7}$/)) continue;
+
+    if (seenNumbers.has(roshanNumber)) {
+      if (status === "Activated") {
+        seenNumbers.set(roshanNumber, { status, no: data[i][0], date: formatDate(data[i][1]), number: roshanNumber });
+      }
+    } else {
+      seenNumbers.set(roshanNumber, { status, no: data[i][0], date: formatDate(data[i][1]), number: roshanNumber });
+    }
+  }
+
+  const pendingRows = [];
+  for (const [number, row] of seenNumbers) {
+    if (row.status === "Pending") {
+      pendingRows.push({ ...row, number });
     }
   }
 
@@ -38,7 +50,7 @@ function sendPendingZeroRatingEmail() {
       <p>Dear Roshan Team,</p>
       <p>I hope this message finds you well. As of today, there are <strong>${pendingRows.length} number(s)</strong> submitted to our system that are <strong>not yet activated</strong> on the Zero Rating package. We kindly request that these be added to the system at your earliest convenience.</p>
       <p>Please prioritize the activation of these numbers so our users can benefit from the Zero Rating service without further delay.</p>
-      <p>📋 <a href="https://docs.google.com/spreadsheets/d/1d4sXSDfF45iHlsqFljpAU94_uyqbruyzOvosirUwNN4/edit?gid=1635622162#gid=1635622162" style="color:#185FA5">View the full sheet here</a></p>
+      <p>📋 <a href=""YOUR_GOOGLE_SHEET_URL"" style="color:#185FA5">View the full sheet here</a></p>
       <p>Thank you for your continued support and cooperation.</p>
       <p style="margin-top:24px">Warm regards,<br>
         <strong>Shams Haqyar — Lead Technology</strong><br>
@@ -48,11 +60,11 @@ function sendPendingZeroRatingEmail() {
   </div>`;
 
   GmailApp.sendEmail(
-    "example",
+    "ROSHAN_EMAIL_1, ROSHAN_EMAIL_2"
     subject,
     "Please view this email in HTML format.",
     {
-      cc:       "example",
+      cc: "INTERNAL_CC_EMAIL_1, INTERNAL_CC_EMAIL_2"
       htmlBody: htmlBody,
       name:     "Zero Rating System"
     }
